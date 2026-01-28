@@ -9,8 +9,10 @@ void ui_Screen1_screen_init(void)
 {
     ui_Screen1 = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_Screen1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_add_flag(ui_Screen1, LV_OBJ_FLAG_GESTURE_BUBBLE);
     lv_obj_set_style_bg_color(ui_Screen1, lv_color_hex(0x292929), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Screen1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_add_event_cb(ui_Screen1, ui_event_Screen1, LV_EVENT_GESTURE, NULL);
 
     ui_Panel1 = lv_obj_create(ui_Screen1);
     lv_obj_set_width(ui_Panel1, 234);

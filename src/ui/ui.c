@@ -30,6 +30,21 @@ lv_obj_t * ui_sensorerrorValue;
 lv_obj_t * ui_inteneterrorValue;
 lv_obj_t * ui_Label7;
 lv_obj_t * ui_humidValue1;
+// SCREEN: ui_Screen2
+void ui_Screen2_screen_init(void);
+lv_obj_t * ui_Screen2;
+lv_obj_t * ui_tempOffsetLabel;
+lv_obj_t * ui_tempOffsetValue;
+lv_obj_t * ui_tempOffsetMinus;
+lv_obj_t * ui_tempOffsetMinusLabel;
+lv_obj_t * ui_tempOffsetPlus;
+lv_obj_t * ui_tempOffsetPlusLabel;
+lv_obj_t * ui_humidOffsetLabel;
+lv_obj_t * ui_humidOffsetValue;
+lv_obj_t * ui_humidOffsetMinus;
+lv_obj_t * ui_humidOffsetMinusLabel;
+lv_obj_t * ui_humidOffsetPlus;
+lv_obj_t * ui_humidOffsetPlusLabel;
 // CUSTOM VARIABLES
 
 // EVENTS
@@ -58,6 +73,7 @@ void ui_init(void)
                                                false, LV_FONT_DEFAULT);
     lv_disp_set_theme(dispp, theme);
     ui_Screen1_screen_init();
+    ui_Screen2_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_Screen1);
 }
