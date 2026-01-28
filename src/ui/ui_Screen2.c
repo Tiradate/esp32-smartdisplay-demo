@@ -19,7 +19,7 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_align(ui_navToScreen1, LV_ALIGN_TOP_LEFT);
     lv_obj_set_x(ui_navToScreen1, 6);
     lv_obj_set_y(ui_navToScreen1, 6);
-    lv_obj_add_event_cb(ui_navToScreen1, ui_event_GotoScreen1, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_flag(ui_navToScreen1, LV_OBJ_FLAG_HIDDEN);
     lv_obj_set_style_bg_color(ui_navToScreen1, lv_color_hex(0x3A3A3A), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_navToScreen1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -29,6 +29,11 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_style_text_color(ui_navToScreen1Label, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_navToScreen1Label, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_transform_angle(ui_navToScreen1Label, -900, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_add_event_cb(ui_Screen2, ui_event_GotoScreen1, LV_EVENT_PRESSED, NULL);
+    lv_obj_add_event_cb(ui_Screen2, ui_event_GotoScreen1, LV_EVENT_PRESSING, NULL);
+    lv_obj_add_event_cb(ui_Screen2, ui_event_GotoScreen1, LV_EVENT_RELEASED, NULL);
+    lv_obj_add_event_cb(ui_Screen2, ui_event_GotoScreen1, LV_EVENT_PRESS_LOST, NULL);
 
     ui_tempOffsetLabel = lv_label_create(ui_Screen2);
     lv_obj_set_width(ui_tempOffsetLabel, LV_SIZE_CONTENT);
