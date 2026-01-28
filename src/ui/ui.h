@@ -31,14 +31,26 @@ extern lv_obj_t * ui_Screen1;
 extern lv_obj_t * ui_Panel1;
 extern lv_obj_t * ui_Panel2;
 extern lv_obj_t * ui_Label1;
-void ui_event_btnCount(lv_event_t * e);
-extern lv_obj_t * ui_btnCount;
-extern lv_obj_t * ui_lblButton;
-extern lv_obj_t * ui_lblCount;
-extern lv_obj_t * ui_lblCountValue;
-extern lv_obj_t * ui_GradR;
-extern lv_obj_t * ui_GradG;
-extern lv_obj_t * ui_GradB;
+extern lv_obj_t * ui_Label3;
+extern lv_obj_t * ui_Label2;
+extern lv_obj_t * ui_Label4;
+extern lv_obj_t * ui_Label5;
+extern lv_obj_t * ui_humidValue;
+extern lv_obj_t * ui_tempValue;
+extern lv_obj_t * ui_Label8;
+extern lv_obj_t * ui_dateValue;
+extern lv_obj_t * ui_timeValue;
+extern lv_obj_t * ui_Label11;
+extern lv_obj_t * ui_awsValue;
+extern lv_obj_t * ui_Label6;
+extern lv_obj_t * ui_sensorerrorValue;
+extern lv_obj_t * ui_inteneterrorValue;
+extern lv_obj_t * ui_Label7;
+extern lv_obj_t * ui_humidValue1;
+// CUSTOM VARIABLES
+
+// EVENTS
+
 extern lv_obj_t * ui____initial_actions0;
 
 // UI INIT

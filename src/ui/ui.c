@@ -27,13 +27,8 @@ lv_obj_t * ui_Label11;
 lv_obj_t * ui_awsValue;
 lv_obj_t * ui_Label6;
 lv_obj_t * ui_sensorerrorValue;
-<<<<<<< HEAD
 lv_obj_t * ui_inteneterrorValue;
 lv_obj_t * ui_Label7;
-=======
-lv_obj_t * ui_Label7;
-lv_obj_t * ui_inteneterrorValue;
->>>>>>> a3c42a3c1ddc4120aea956f6049ed32424228077
 lv_obj_t * ui_humidValue1;
 // CUSTOM VARIABLES
 
