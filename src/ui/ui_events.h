@@ -10,6 +10,13 @@
 extern "C" {
 #endif
 
+void ui_event_Screen1(lv_event_t * e);
+void ui_event_Screen2(lv_event_t * e);
+void ui_event_TempOffsetMinus(lv_event_t * e);
+void ui_event_TempOffsetPlus(lv_event_t * e);
+void ui_event_HumidOffsetMinus(lv_event_t * e);
+void ui_event_HumidOffsetPlus(lv_event_t * e);
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif

@@ -28,6 +28,33 @@ PubSubClient client(net);
 // Your sensor values (replace these with actual values)
 float temperature = 0.0;
 float humidity = 0.0;
+float temp_offset = 0.0f;
+float humid_offset = 0.0f;
+
+extern "C" void ui_adjust_temp_offset(float delta);
+extern "C" void ui_adjust_humid_offset(float delta);
+
+static void update_offset_labels()
+{
+    if (ui_tempOffsetValue) {
+        lv_label_set_text_fmt(ui_tempOffsetValue, "%.1f", temp_offset);
+    }
+    if (ui_humidOffsetValue) {
+        lv_label_set_text_fmt(ui_humidOffsetValue, "%.1f", humid_offset);
+    }
+}
+
+extern "C" void ui_adjust_temp_offset(float delta)
+{
+    temp_offset += delta;
+    update_offset_labels();
+}
+
+extern "C" void ui_adjust_humid_offset(float delta)
+{
+    humid_offset += delta;
+    update_offset_labels();
+}
 
 const char* getModbusErrorDescription(uint8_t code) {
     switch(code) {
@@ -106,6 +133,7 @@ void setup() {
 
     __attribute__((unused)) auto disp = lv_disp_get_default();
     ui_init();
+    update_offset_labels();
 }
 
 
@@ -152,8 +180,9 @@ void loop() {
         }
 
         humidity = node.getResponseBuffer(0) / 10.0;
-        String humidity_str = String(humidity, 2);
-        if (humidity > 60.0) {
+        float adjusted_humidity = humidity + humid_offset;
+        String humidity_str = String(adjusted_humidity, 2);
+        if (adjusted_humidity > 60.0) {
             // Set the text to red
             lv_label_set_text(ui_humidValue, "");
             lv_label_set_text(ui_humidValue1, humidity_str.c_str());
@@ -165,7 +194,8 @@ void loop() {
 
         
         temperature = node.getResponseBuffer(1) / 10.0;
-        String temp_str = String(temperature, 2);
+        float adjusted_temp = temperature + temp_offset;
+        String temp_str = String(adjusted_temp, 2);
         lv_label_set_text(ui_tempValue, temp_str.c_str());
 
          // Check Wi-Fi status periodically (e.g., once every 5 seconds)
@@ -221,8 +251,10 @@ void loop() {
                     result = node.readHoldingRegisters(0, 2);
                     humidity = node.getResponseBuffer(0) / 10.0;
                     temperature = node.getResponseBuffer(1) / 10.0;
-                    doc["humidity"] = String(humidity, 2);
-                    doc["temperature"] = String(temperature, 2);
+                    float adjusted_humidity = humidity + humid_offset;
+                    float adjusted_temp = temperature + temp_offset;
+                    doc["humidity"] = String(adjusted_humidity, 2);
+                    doc["temperature"] = String(adjusted_temp, 2);
                     char jsonBuffer[512];
                     size_t len = serializeJson(doc, jsonBuffer);
                     bool published = client.publish(AWS_IOT_PUBLISH_TOPIC, (const uint8_t*)jsonBuffer, len);
