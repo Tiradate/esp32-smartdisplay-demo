@@ -70,8 +70,8 @@ void ui_Screen1_screen_init(void)
     ui_Label4 = lv_label_create(ui_Screen1);
     lv_obj_set_width(ui_Label4, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label4, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label4, -52);
-    lv_obj_set_y(ui_Label4, 58);
+    lv_obj_set_x(ui_Label4, -30);
+    lv_obj_set_y(ui_Label4, 70);
     lv_obj_set_align(ui_Label4, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label4, "Finishing Goods");
     lv_obj_set_style_text_color(ui_Label4, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -160,7 +160,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_width(ui_Label11, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label11, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label11, 109);
-    lv_obj_set_y(ui_Label11, -80);
+    lv_obj_set_y(ui_Label11, -55);
     lv_obj_set_align(ui_Label11, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label11, "AWS:");
     lv_obj_set_style_text_color(ui_Label11, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -172,7 +172,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_width(ui_awsValue, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_awsValue, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_awsValue, 213);
-    lv_obj_set_y(ui_awsValue, -111);
+    lv_obj_set_y(ui_awsValue, -85);
     lv_obj_set_align(ui_awsValue, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_awsValue, "-");
     lv_obj_set_style_text_color(ui_awsValue, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);

@@ -17,7 +17,7 @@
 ModbusMaster node;// Wi-Fi credentials
 
 // The MQTT topics that this device should publish/subscribe
-#define AWS_IOT_PUBLISH_TOPIC   "iot/firealarm/vtgfgMM" // "iot/firealarm/vtgdrTH" "iot/firealarm/vtgfgTH"
+#define AWS_IOT_PUBLISH_TOPIC   "iot/firealarm/vtgfgTH" // "iot/firealarm/vtgdrTH" "iot/firealarm/vtgfgTH"
 #define PUBLISH_INTERVAL 30000  // 30 seconds
 #define LINE_TOKEN "jlEuC15y3q0H9amIaRrr25AEvVFnnzS1U78B2mhLPfwTgBoIohh023LEAC+coo80dIgSmWYWhOGII0JLRJHvadyotfinQo1vHzzKYwDx5d7Yy4eb++9OULo1Uco4vH6TjAqMulSiGe068San6VK2AgdB04t89/1O/w1cDnyilFU=" // Channel access token
 #define RESTART_INTERVAL 10800000UL  // 3 hours in milliseconds
