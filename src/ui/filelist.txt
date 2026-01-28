@@ -1,4 +1,4 @@
-screens/ui_scrMain.c
+ui_Screen1.c
 ui.c
-components/ui_comp_hook.c
+ui_comp_hook.c
 ui_helpers.c

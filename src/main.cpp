@@ -1,83 +1,105 @@
-#include <Arduino.h>
+#include "AWSkey.h"
+#include <WiFiClientSecure.h>
+#include <PubSubClient.h>
+#include <ArduinoJson.h>
+#include "WiFi.h"
+ 
+#define AWS_IOT_PUBLISH_TOPIC   "iot/firealarmtest"
+#define AWS_IOT_SUBSCRIBE_TOPIC "iot/firealarmtest"
 
-#include <esp32_smartdisplay.h>
-#include <ui/ui.h>
+WiFiClientSecure net = WiFiClientSecure();
+PubSubClient client(net);
 
-void OnAddOneClicked(lv_event_t *e)
+float h;
+float t;
+ 
+void messageHandler(char* topic, byte* payload, unsigned int length)
 {
-    static uint32_t cnt = 0;
-    cnt++;
-    lv_label_set_text_fmt(ui_lblCountValue, "%u", cnt);
+  Serial.print("incoming: ");
+  Serial.println(topic);
+ 
+  StaticJsonDocument<200> doc;
+  deserializeJson(doc, payload);
+  const char* message = doc["message"];
+  Serial.println(message);
 }
 
-void OnRotateClicked(lv_event_t *e)
+void connectAWS()
 {
-    auto disp = lv_disp_get_default();
-    auto rotation = (lv_display_rotation_t)((lv_disp_get_rotation(disp) + 1) % (LV_DISPLAY_ROTATION_270 + 1));
-    lv_display_set_rotation(disp, rotation);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+ 
+  Serial.println("Connecting to Wi-Fi");
+ 
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+  }
+ 
+  // Configure WiFiClientSecure to use the AWS IoT device credentials
+  net.setCACert(AWS_CERT_CA);
+  net.setCertificate(AWS_CERT_CRT);
+  net.setPrivateKey(AWS_CERT_PRIVATE);
+ 
+  // Connect to the MQTT broker on the AWS endpoint we defined earlier
+  client.setServer(AWS_IOT_ENDPOINT, 8883);
+ 
+  // Create a message handler
+  client.setCallback(messageHandler);
+ 
+  Serial.println("Connecting to AWS IOT");
+ 
+  while (!client.connect(THINGNAME))
+  {
+    Serial.print(".");
+    delay(100);
+  }
+ 
+  if (!client.connected())
+  {
+    Serial.println("AWS IoT Timeout!");
+    return;
+  }
+ 
+  // Subscribe to a topic
+  client.subscribe(AWS_IOT_SUBSCRIBE_TOPIC);
+ 
+  Serial.println("AWS IoT Connected!");
 }
-
+ 
+void publishMessage()
+{
+  StaticJsonDocument<200> doc;
+  doc["humidity"] = 5;
+  doc["temperature"] = 10;
+  char jsonBuffer[512];
+  serializeJson(doc, jsonBuffer); // print to client
+ 
+  client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
+}
+ 
 void setup()
 {
-#ifdef ARDUINO_USB_CDC_ON_BOOT
-    delay(5000);
-#endif
-    Serial.begin(115200);
-    Serial.setDebugOutput(true);
-    log_i("Board: %s", BOARD_NAME);
-    log_i("CPU: %s rev%d, CPU Freq: %d Mhz, %d core(s)", ESP.getChipModel(), ESP.getChipRevision(), getCpuFrequencyMhz(), ESP.getChipCores());
-    log_i("Free heap: %d bytes", ESP.getFreeHeap());
-    log_i("Free PSRAM: %d bytes", ESP.getPsramSize());
-    log_i("SDK version: %s", ESP.getSdkVersion());
-
-    smartdisplay_init();
-
-    __attribute__((unused)) auto disp = lv_disp_get_default();
-    // lv_disp_set_rotation(disp, LV_DISP_ROT_90);
-    // lv_disp_set_rotation(disp, LV_DISP_ROT_180);
-    // lv_disp_set_rotation(disp, LV_DISP_ROT_270);
-
-    ui_init();
-
-    // To use third party libraries, enable the define in lv_conf.h: #define LV_USE_QRCODE 1
-    auto ui_qrcode = lv_qrcode_create(ui_scrMain);
-    lv_qrcode_set_size(ui_qrcode, 100);
-    lv_qrcode_set_dark_color(ui_qrcode, lv_color_black());
-    lv_qrcode_set_light_color(ui_qrcode, lv_color_white());
-    const char *qr_data = "https://github.com/rzeldent/esp32-smartdisplay";
-    lv_qrcode_update(ui_qrcode, qr_data, strlen(qr_data));
-    lv_obj_center(ui_qrcode);
+  Serial.begin(115200);
 }
-
-ulong next_millis;
-auto lv_last_tick = millis();
-
+ 
 void loop()
 {
-    auto const now = millis();
-    if (now > next_millis)
-    {
-        next_millis = now + 500;
-
-        char text_buffer[32];
-        sprintf(text_buffer, "%lu", now);
-        lv_label_set_text(ui_lblMillisecondsValue, text_buffer);
-
-#ifdef BOARD_HAS_RGB_LED
-        auto const rgb = (now / 2000) % 8;
-        smartdisplay_led_set_rgb(rgb & 0x01, rgb & 0x02, rgb & 0x04);
-#endif
-
-#ifdef BOARD_HAS_CDS
-        auto cdr = analogReadMilliVolts(CDS);
-        sprintf(text_buffer, "%d", cdr);
-        lv_label_set_text(ui_lblCdrValue, text_buffer);
-#endif
-    }
-
-    // Update the ticker
-    lv_tick_inc(now - lv_last_tick);
-    lv_last_tick = now;
-    // Update the UI
-    lv_timer_handler();
+  h = 5;
+  t = 10;
+ 
+ 
+  if (isnan(10) || isnan(5) )  // Check if any reads failed and exit early (to try again).
+ 
+  Serial.print(F("Humidity: "));
+  Serial.print(h);
+  Serial.print(F("%  Temperature: "));
+  Serial.print(t);
+  Serial.println(F("°C "));
+ 
+  client.disconnect();
+  connectAWS();
+  publishMessage();
+  delay(30000);
 }
