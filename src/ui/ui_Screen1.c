@@ -9,13 +9,26 @@ void ui_Screen1_screen_init(void)
 {
     ui_Screen1 = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_Screen1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_add_flag(ui_Screen1, LV_OBJ_FLAG_GESTURE_BUBBLE);
     lv_obj_add_flag(ui_Screen1, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_set_style_bg_color(ui_Screen1, lv_color_hex(0x292929), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Screen1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_add_event_cb(ui_Screen1, ui_event_Screen1, LV_EVENT_GESTURE, NULL);
-    lv_obj_add_event_cb(ui_Screen1, ui_event_Screen1, LV_EVENT_PRESSED, NULL);
-    lv_obj_add_event_cb(ui_Screen1, ui_event_Screen1, LV_EVENT_RELEASED, NULL);
+
+    ui_navToScreen2 = lv_btn_create(ui_Screen1);
+    lv_obj_set_width(ui_navToScreen2, 32);
+    lv_obj_set_height(ui_navToScreen2, 32);
+    lv_obj_set_align(ui_navToScreen2, LV_ALIGN_TOP_RIGHT);
+    lv_obj_set_x(ui_navToScreen2, -6);
+    lv_obj_set_y(ui_navToScreen2, 6);
+    lv_obj_add_event_cb(ui_navToScreen2, ui_event_GotoScreen2, LV_EVENT_CLICKED, NULL);
+    lv_obj_set_style_bg_color(ui_navToScreen2, lv_color_hex(0x3A3A3A), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_navToScreen2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_navToScreen2Label = lv_label_create(ui_navToScreen2);
+    lv_label_set_text(ui_navToScreen2Label, LV_SYMBOL_RIGHT);
+    lv_obj_center(ui_navToScreen2Label);
+    lv_obj_set_style_text_color(ui_navToScreen2Label, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_navToScreen2Label, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_transform_angle(ui_navToScreen2Label, -900, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_Panel1 = lv_obj_create(ui_Screen1);
     lv_obj_set_width(ui_Panel1, 234);
