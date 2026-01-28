@@ -35,7 +35,7 @@ void ui_Screen2_screen_init(void)
     lv_label_set_text(ui_tempOffsetValue, "0.0");
     lv_obj_set_style_text_color(ui_tempOffsetValue, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_tempOffsetValue, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_tempOffsetValue, &lv_font_montserrat_22, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_tempOffsetValue, &lv_font_montserrat_24, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_transform_angle(ui_tempOffsetValue, -900, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_tempOffsetMinus = lv_btn_create(ui_Screen2);
@@ -93,7 +93,7 @@ void ui_Screen2_screen_init(void)
     lv_label_set_text(ui_humidOffsetValue, "0.0");
     lv_obj_set_style_text_color(ui_humidOffsetValue, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_humidOffsetValue, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_humidOffsetValue, &lv_font_montserrat_22, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_humidOffsetValue, &lv_font_montserrat_24, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_transform_angle(ui_humidOffsetValue, -900, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_humidOffsetMinus = lv_btn_create(ui_Screen2);
