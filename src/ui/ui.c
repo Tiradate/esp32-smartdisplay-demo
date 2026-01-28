@@ -30,6 +30,8 @@ lv_obj_t * ui_sensorerrorValue;
 lv_obj_t * ui_inteneterrorValue;
 lv_obj_t * ui_Label7;
 lv_obj_t * ui_humidValue1;
+lv_obj_t * ui_navToScreen2;
+lv_obj_t * ui_navToScreen2Label;
 // SCREEN: ui_Screen2
 void ui_Screen2_screen_init(void);
 lv_obj_t * ui_Screen2;
@@ -45,6 +47,8 @@ lv_obj_t * ui_humidOffsetMinus;
 lv_obj_t * ui_humidOffsetMinusLabel;
 lv_obj_t * ui_humidOffsetPlus;
 lv_obj_t * ui_humidOffsetPlusLabel;
+lv_obj_t * ui_navToScreen1;
+lv_obj_t * ui_navToScreen1Label;
 // CUSTOM VARIABLES
 
 // EVENTS

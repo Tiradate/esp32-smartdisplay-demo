@@ -10,8 +10,8 @@
 extern "C" {
 #endif
 
-void ui_event_Screen1(lv_event_t * e);
-void ui_event_Screen2(lv_event_t * e);
+void ui_event_GotoScreen2(lv_event_t * e);
+void ui_event_GotoScreen1(lv_event_t * e);
 void ui_event_TempOffsetMinus(lv_event_t * e);
 void ui_event_TempOffsetPlus(lv_event_t * e);
 void ui_event_HumidOffsetMinus(lv_event_t * e);
